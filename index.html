@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Friend &amp; Team DNA</title>
+<meta name="description" content="A 10-minute self-reflection profile on how you connect with friends and contribute to teams.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f3ee; --surface:#fffdf9; --ink:#1d2321; --muted:#5d6662; --line:#e3ddd3;
+  --accent:#1f6f5c; --accent-ink:#ffffff; --accent-soft:#e3efe9; --warm:#c8743c; --warm-soft:#f7e8dc;
+  --radius:14px; --shadow:0 1px 2px rgba(29,35,33,.05),0 6px 24px rgba(29,35,33,.06);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.15;margin:0 0 .5em;letter-spacing:-.01em}
+h1{font-size:clamp(2.2rem,6vw,3.4rem)}
+h2{font-size:clamp(1.5rem,4vw,2rem)}
+h3{font-size:1.15rem}
+p{margin:0 0 1em}
+.wrap{max-width:720px;margin:0 auto;padding:24px 20px 64px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:4px 0 28px;font-size:.85rem;color:var(--muted)}
+.brand{font-family:Fraunces,serif;font-weight:600;color:var(--ink);font-size:1rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px}
+.eyebrow{text-transform:uppercase;letter-spacing:.09em;font-size:.75rem;font-weight:600;color:var(--accent);margin-bottom:10px}
+.lede{font-size:1.1rem;color:var(--muted);max-width:56ch}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:24px 0}
+.fact{background:var(--accent-soft);border-radius:10px;padding:14px}
+.fact b{display:block;font-family:Fraunces,serif;font-size:1.5rem;color:var(--accent)}
+.fact span{font-size:.85rem;color:var(--muted)}
+.note{border-left:3px solid var(--warm);background:var(--warm-soft);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.9rem;color:#5a3d28;margin:20px 0}
+label.field{display:block;font-weight:500;margin:20px 0 6px}
+input[type=text]{width:100%;font:inherit;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:#fff}
+input[type=text]:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.btn{font:inherit;font-weight:600;border:0;border-radius:999px;padding:13px 24px;cursor:pointer;background:var(--accent);color:var(--accent-ink);transition:transform .12s ease,background .12s ease}
+.btn:hover{background:#185a4a}
+.btn:active{transform:scale(.98)}
+.btn:focus-visible,.opt:focus-visible,.lk:focus-visible,.ghost:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.ghost{font:inherit;font-weight:500;background:none;border:1px solid var(--line);border-radius:999px;padding:11px 20px;cursor:pointer;color:var(--ink)}
+.ghost:hover{border-color:var(--ink)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:24px}
+.hidden{display:none!important}
+
+/* quiz */
+.progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin-bottom:10px}
+.progress i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s ease}
+.pmeta{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);margin-bottom:22px}
+.qnum{font-family:Fraunces,serif;color:var(--accent);font-size:1rem;margin-bottom:6px}
+.qtext{font-family:Fraunces,serif;font-size:clamp(1.3rem,3.6vw,1.65rem);font-weight:500;line-height:1.3;margin-bottom:24px}
+.likert{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.opt{font:inherit;text-align:left;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;cursor:pointer;color:var(--ink);transition:border-color .12s,background .12s}
+.opt:hover{border-color:var(--accent)}
+.opt[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft)}
+.likert .opt{text-align:center;padding:14px 6px;font-size:.82rem;line-height:1.25;display:flex;flex-direction:column;align-items:center;gap:6px}
+.likert .opt b{font-family:Fraunces,serif;font-size:1.3rem}
+.choices{display:grid;gap:10px}
+.choices .opt{display:flex;gap:12px;align-items:flex-start}
+.choices .opt .k{flex:none;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:.8rem;font-weight:600;color:var(--muted)}
+.choices .opt[aria-pressed=true] .k{background:var(--accent);border-color:var(--accent);color:#fff}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+.lk{background:none;border:0;font:inherit;color:var(--muted);cursor:pointer;padding:6px 0}
+.lk:hover{color:var(--ink)}
+.lk[disabled]{opacity:.35;cursor:default}
+.hint{font-size:.8rem;color:var(--muted)}
+@media (max-width:560px){
+  .likert{grid-template-columns:1fr;gap:8px}
+  .likert .opt{flex-direction:row;justify-content:flex-start;text-align:left;gap:14px;padding:12px 16px;font-size:.95rem}
+  .likert .opt b{font-size:1.1rem;width:20px}
+  .facts{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .fact{padding:10px}.fact b{font-size:1.25rem}
+  .card{padding:22px}
+  .hint{display:none}
+}
+
+/* results */
+.hero{background:var(--ink);color:#f6f3ee;border-radius:var(--radius);padding:32px 28px;margin-bottom:20px}
+.hero .eyebrow{color:#9fd3c2}
+.hero h1{color:#fff;margin-bottom:.25em}
+.hero .pair{font-size:1.05rem;color:#c9d1cd}
+.hero .pair b{color:#fff;font-weight:600}
+.blend{display:inline-block;margin-top:12px;font-size:.8rem;background:rgba(255,255,255,.1);border-radius:99px;padding:4px 12px;color:#dfe6e3}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:640px){.grid2{grid-template-columns:1fr}}
+.section{margin-top:20px}
+.arch .tag{font-size:.85rem;color:var(--accent);font-weight:600;margin-bottom:4px}
+.arch .second{font-size:.88rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:14px}
+ul.clean{margin:0;padding-left:1.1em}
+ul.clean li{margin:.3em 0}
+.bars{display:grid;gap:14px}
+.bar .lbl{display:flex;justify-content:space-between;font-size:.92rem;margin-bottom:5px}
+.bar .lbl span:last-child{color:var(--muted);font-variant-numeric:tabular-nums}
+.bar .track{height:10px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar .track i{display:block;height:100%;border-radius:99px;background:var(--accent)}
+.bar.team .track i{background:var(--warm)}
+.bar small{display:block;font-size:.78rem;color:var(--muted);margin-top:4px}
+.role{background:var(--accent-soft);border-radius:12px;padding:18px;margin-top:6px}
+.role b{font-family:Fraunces,serif;font-size:1.2rem;display:block;margin-bottom:4px;color:var(--accent)}
+.responses li{margin:.45em 0;font-size:.93rem}
+.responses li span{color:var(--muted)}
+
+/* takeaway card */
+.take{background:linear-gradient(135deg,#1f6f5c 0%,#174d41 100%);color:#fff;border-radius:18px;padding:28px;position:relative;overflow:hidden}
+.take:after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;border:28px solid rgba(255,255,255,.07)}
+.take .eyebrow{color:#a9e0cf}
+.take h2{color:#fff;margin-bottom:16px}
+.take dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:0;font-size:.95rem}
+.take dt{color:#a9e0cf}
+.take dd{margin:0;font-weight:600}
+.take .fine{font-size:.75rem;color:#bfe3d8;margin-top:18px}
+.foot{margin-top:40px;font-size:.8rem;color:var(--muted);text-align:center}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:99px;font-size:.9rem;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:1}
+details{margin-top:12px}
+summary{cursor:pointer;font-weight:500}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media print{.row,.top,.foot,.toast{display:none!important}body{background:#fff}.card,.hero{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="brand">Friend &amp; Team DNA</span><span id="topmeta">Self-reflection profile</span></div>
+
+  <!-- INTRO -->
+  <section id="intro">
+    <div class="eyebrow">Friendship &amp; teamwork profile</div>
+    <h1>What kind of friend are you? What kind of teammate?</h1>
+    <p class="lede">A short, reflective questionnaire on how you connect with friends, contribute to teams and respond to everyday situations. At the end you get a personal profile and a takeaway card.</p>
+    <div class="facts">
+      <div class="fact"><b>40</b><span>questions</span></div>
+      <div class="fact"><b>4</b><span>sections</span></div>
+      <div class="fact"><b>8–12</b><span>minutes</span></div>
+    </div>
+    <div class="card">
+      <h3>Before you start</h3>
+      <p>There are no right or wrong answers. Respond based on how you <em>generally</em> behave, not how you think you should behave. Answer honestly, even if some of your answers seem contradictory.</p>
+      <div class="note">This is a self-reflection activity, not a validated psychological test. Results describe tendencies you report, not fixed labels or judgements. Your answers stay on your device and are not sent anywhere.</div>
+      <label class="field" for="name">Your first name <span style="color:var(--muted);font-weight:400">(optional, shown on your card)</span></label>
+      <input id="name" type="text" maxlength="40" autocomplete="given-name" placeholder="e.g. Ananya">
+      <div class="row">
+        <button class="btn" id="startBtn">Start the assessment</button>
+        <button class="ghost hidden" id="resumeBtn">Resume where I left off</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION INTERSTITIAL -->
+  <section id="sect" class="hidden">
+    <div class="card">
+      <div class="eyebrow" id="sectEyebrow"></div>
+      <h2 id="sectTitle"></h2>
+      <p id="sectDesc" class="lede" style="font-size:1rem"></p>
+      <div class="row"><button class="btn" id="sectGo">Continue</button><button class="lk" id="sectBack">Back</button></div>
+    </div>
+  </section>
+
+  <!-- QUESTION -->
+  <section id="quiz" class="hidden">
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+    <div class="pmeta"><span id="secLabel"></span><span id="count"></span></div>
+    <div class="card">
+      <div class="qnum" id="qnum"></div>
+      <div class="qtext" id="qtext"></div>
+      <div id="answers" role="group"></div>
+      <div class="qnav">
+        <button class="lk" id="back">← Back</button>
+        <span class="hint" id="hint">Tip: use keys 1–5</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="hidden"></section>
+
+  <div class="foot">Friend &amp; Team DNA · a theory-informed self-reflection activity · not a diagnostic or standardised test</div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ---------------- DATA ---------------- */
+const LIKERT = ["Strongly disagree","Disagree","Neither agree nor disagree","Agree","Strongly agree"];
+const SECTIONS = [
+  {id:"A", title:"Friendship DNA", eyebrow:"Section A · 12 questions", desc:"How you maintain friendships, express care, build trust and handle conflict. Rate how much each statement sounds like you."},
+  {id:"B", title:"Teamwork DNA", eyebrow:"Section B · 15 questions", desc:"How you collaborate, take initiative, organise, communicate and follow through in groups."},
+  {id:"C", title:"Situational judgement", eyebrow:"Section C · 8 situations", desc:"Pick the response closest to what you would actually do. These aren’t right-or-wrong; they show your preferred approach."},
+  {id:"D", title:"About you", eyebrow:"Section D · 5 questions", desc:"A few quick questions about your motivations, preferred environments and how you see yourself."}
+];
+const Q = [
+ // Section A
+ {s:"A",t:"My friends can approach me when they are going through a difficult time."},
+ {s:"A",t:"I notice when a friend is behaving differently, even when they do not explicitly tell me something is wrong."},
+ {s:"A",t:"I make an effort to include friends who seem left out of a group."},
+ {s:"A",t:"I enjoy spending time with friends even when we have nothing particular to do."},
+ {s:"A",t:"I am comfortable sharing my vulnerabilities with people I trust."},
+ {s:"A",t:"I can disagree with a friend without feeling that our friendship is threatened."},
+ {s:"A",t:"I make an effort to maintain friendships even when we are busy or physically apart."},
+ {s:"A",t:"I expect the same level of effort and consideration from friends that I give them."},
+ {s:"A",t:"I find it difficult to tell a friend when something they did hurt me."},
+ {s:"A",t:"When a friend succeeds, I genuinely celebrate their achievement without comparing it to my own."},
+ {s:"A",t:"I am willing to adjust my plans to support a friend when they genuinely need me."},
+ {s:"A",t:"I can recognise when a friend needs space rather than advice or company."},
+ // Section B
+ {s:"B",t:"I naturally take responsibility when a group is struggling to get started."},
+ {s:"B",t:"I make sure that everyone gets an opportunity to contribute their ideas."},
+ {s:"B",t:"I prefer having a clear plan, timeline and division of responsibilities before beginning a task."},
+ {s:"B",t:"I am comfortable making decisions when a group is unable to reach an agreement."},
+ {s:"B",t:"I often come up with alternative approaches when the group’s original plan is not working."},
+ {s:"B",t:"I make sure that I complete my assigned responsibilities even when nobody follows up with me."},
+ {s:"B",t:"I notice when a team member is disengaged or struggling to contribute."},
+ {s:"B",t:"I am comfortable questioning an idea if I believe it could negatively affect the team’s outcome."},
+ {s:"B",t:"I motivate others when the group starts losing enthusiasm."},
+ {s:"B",t:"I prefer contributing through execution rather than being the person who directs everyone."},
+ {s:"B",t:"I can accept constructive criticism without taking it personally."},
+ {s:"B",t:"I pay attention to whether the team’s final output meets a high standard."},
+ {s:"B",t:"I am willing to take on responsibilities outside my assigned role if the team needs help."},
+ {s:"B",t:"I can work effectively with people whose personalities and working styles are very different from mine."},
+ {s:"B",t:"I would rather address a disagreement directly than allow resentment to build within the team."},
+ // Section C
+ {s:"C",t:"Your friend has been unusually quiet throughout the day. What do you do?",o:["Check in privately and give them space to talk.","Try to make them laugh and distract them.","Wait until they approach me because I do not want to intrude.","Ask mutual friends if they know what is happening."],short:"A friend goes quiet"},
+ {s:"C",t:"Your group has a deadline tomorrow, but two members have not completed their work.",o:["Redistribute the work and establish a realistic plan.","Speak to the members and understand what is stopping them.","Complete as much of their work as possible to save the project.","Inform the group leader and let them handle it."],short:"Teammates miss their part"},
+ {s:"C",t:"Two of your closest friends have an argument, and both expect you to take their side.",o:["Listen to both perspectives and encourage them to resolve it.","Support the friend who seems more hurt.","Avoid getting involved because it is their disagreement.","Bring them together and help mediate the conversation."],short:"Two friends fall out"},
+ {s:"C",t:"Your team rejects an idea that you genuinely believe is good.",o:["Explain your reasoning and provide evidence.","Accept the group’s decision and move forward.","Suggest a modified version that incorporates everyone’s concerns.","Feel frustrated but avoid further discussion."],short:"Your idea is rejected"},
+ {s:"C",t:"A new person joins your friend group and barely speaks.",o:["Make an effort to introduce them to everyone.","Start a one-to-one conversation with them.","Invite them into an ongoing group activity.","Wait for them to become comfortable independently."],short:"A quiet newcomer"},
+ {s:"C",t:"Your team is talented but everyone wants to lead. What would you do?",o:["Help establish clear responsibilities and boundaries.","Encourage a discussion and shared decision-making.","Take charge and establish a direction.","Focus on my own responsibility rather than getting involved."],short:"Everyone wants to lead"},
+ {s:"C",t:"A friend repeatedly cancels plans at the last minute.",o:["Talk openly about how it makes me feel.","Understand their circumstances and give them another chance.","Reduce my expectations and stop initiating plans.","Confront them about the lack of consideration."],short:"A friend keeps cancelling"},
+ {s:"C",t:"Your team has finished its task early, but the output is average.",o:["Review the work and identify improvements.","Celebrate finishing early and avoid unnecessary changes.","Ask the team whether they want to improve specific areas.","Personally refine the sections I think need improvement."],short:"Done early, but average"},
+ // Section D
+ {s:"D",t:"What do people most commonly approach you for?",o:["Emotional support and advice","Problem-solving and solutions","Planning and organising","Motivation and encouragement","Companionship and fun"]},
+ {s:"D",t:"What frustrates you most in a group?",o:["People not contributing equally","Poor communication","Lack of direction","Unnecessary conflict","Low standards and careless work"]},
+ {s:"D",t:"Which environment brings out your best?",o:["A close-knit, emotionally supportive group","A structured group with clear responsibilities","A creative group that welcomes experimentation","A competitive group with ambitious goals","A flexible group with shared leadership"]},
+ {s:"D",t:"What do you value most in a friendship?",o:["Trust and loyalty","Emotional understanding","Shared experiences","Honesty and accountability","Independence and mutual respect"]},
+ {s:"D",t:"Which statement describes you best?",o:["I bring people together.","I make sure things get done.","I help people feel understood.","I challenge people to think differently.","I bring structure to chaos."]}
+];
+
+const FDIMS = {
+  attune:{name:"Emotional attunement",items:[2,3,12],what:"Recognising and responding to others’ emotions"},
+  companion:{name:"Companionship",items:[4,7,10],what:"Enjoyment, engagement and shared experiences"},
+  trust:{name:"Trust and openness",items:[1,5,6],what:"Vulnerability, honesty and psychological safety"},
+  recip:{name:"Reciprocity",items:[8,11],what:"Mutual effort, consideration and support"},
+  conflict:{name:"Conflict navigation",items:[6,-9],what:"Managing disagreements and expressing boundaries"}
+};
+const TDIMS = {
+  lead:{name:"Leadership and initiative",items:[13,16],what:"Taking responsibility, initiating action, making decisions"},
+  coord:{name:"Coordination and organisation",items:[15,25],what:"Planning, delegating and monitoring progress"},
+  comm:{name:"Communication and inclusion",items:[14,19,26,27],what:"Listening, facilitating participation, cohesion"},
+  exec:{name:"Execution and dependability",items:[18,22,25],what:"Completing tasks and following through"},
+  innov:{name:"Innovation and critical thinking",items:[17,20],what:"Challenging assumptions, generating alternatives"},
+  motiv:{name:"Motivation and support",items:[19,21,25],what:"Encouraging members and maintaining morale"}
+};
+
+/* Archetypes. base = Likert items (negative = reverse-scored); cues = [question number, option index] from Sections C and D */
+const FRIEND = {
+  haven:{name:"The Safe Haven",tag:"Emotional anchor",adj:"Steady",dims:["attune","trust"],items:[1,2,11,12],
+    cues:[[28,0],[30,0],[36,0],[39,1],[40,2]],
+    desc:"A friend people may turn to when life gets difficult. You value trust, emotional availability and loyalty, and people tend to feel safe bringing hard things to you.",
+    strengths:["Emotionally dependable","Attentive to people’s needs","Loyal and considerate","Values meaningful connection"],
+    blind:["May take on responsibility for everyone’s emotional well-being.","May find it harder to voice your own needs.","Can feel drained when support isn’t returned."],
+    growth:"Let others look after you sometimes. Practise naming one need of your own each week, and notice who shows up."},
+  sunshine:{name:"The Sunshine Friend",tag:"Social connector",adj:"Bright",dims:["companion"],items:[3,4,10],
+    cues:[[28,1],[32,0],[32,2],[36,4],[39,2],[40,0]],
+    desc:"You bring energy, humour and shared experiences. You help people feel included and turn ordinary time together into something people remember.",
+    strengths:["Makes people feel included","Brings energy and warmth","Celebrates others’ wins","Creates shared moments"],
+    blind:["May avoid difficult conversations to keep the mood light.","May use humour to deflect when things get heavy.","Can feel responsible for everyone having a good time."],
+    growth:"Stay with an uncomfortable conversation a little longer than feels natural. Your warmth makes hard talks safer, not just fun ones."},
+  confidant:{name:"The Quiet Confidant",tag:"Deep connection",adj:"Thoughtful",dims:["trust","attune"],items:[5,12,2],
+    cues:[[32,1],[30,0],[38,0],[39,1],[28,0]],
+    desc:"You prefer meaningful conversations to busy social calendars, and you build a few close, dependable relationships where people feel truly heard.",
+    strengths:["Listens deeply","Keeps confidences","Builds close, lasting bonds","Reads what isn’t said"],
+    blind:["May keep your own feelings to yourself for too long.","Can be overlooked in larger groups.","May wait for others to reach out first."],
+    growth:"Share something on your mind before you’ve fully worked it out. Close friends usually want in earlier than you think."},
+  ride:{name:"The Ride-or-Die",tag:"Loyal supporter",adj:"Loyal",dims:["recip"],items:[7,8,11],
+    cues:[[39,0],[34,1],[30,1],[29,2],[36,0]],
+    desc:"You show commitment through actions: turning up, helping out and staying reliable over the long run, whatever is going on.",
+    strengths:["Reliable in a crisis","Shows care through action","Keeps friendships going over time","Fiercely loyal"],
+    blind:["May give more than you receive.","Can find it hard to set limits.","May feel let down when effort isn’t matched."],
+    growth:"Decide in advance what you can realistically give this week, and say no to the rest without guilt."},
+  truth:{name:"The Truth Teller",tag:"Honest challenger",adj:"Candid",dims:["conflict"],items:[6,-9],
+    cues:[[34,0],[34,3],[39,3],[30,3],[40,3]],
+    desc:"You value directness, accountability and growth. You’re willing to have the uncomfortable conversation, and friends trust that you’ll tell them what you really think.",
+    strengths:["Honest and direct","Addresses issues early","Holds people (and yourself) accountable","Helps friends grow"],
+    blind:["May come across as blunt or critical.","Can push for resolution before others are ready.","May underestimate how words land."],
+    growth:"Before giving feedback, ask: ‘Do you want my honest take or just someone to listen?’ Then match what they need."},
+  indep:{name:"The Independent Companion",tag:"Space giver",adj:"Grounded",dims:["conflict"],items:[12,6],rev:[4,7],
+    cues:[[39,4],[28,2],[32,3],[34,2],[30,2],[38,4]],
+    desc:"You value individuality and friendships that don’t need constant contact. You give people room and expect the same, and your friendships pick up easily after time apart.",
+    strengths:["Respects boundaries","Low-maintenance and secure","Comfortable with time apart","Encourages others’ independence"],
+    blind:["May seem distant to friends who want more frequent contact.","May step back when someone needs you to step in.","Can leave others unsure where they stand."],
+    growth:"Send the small check-in message even when you don’t feel you need one. It costs little and means a lot to some people."}
+};
+const TEAM = {
+  captain:{name:"The Captain",tag:"Natural leader",noun:"Navigator",dims:["lead"],items:[13,16,14],
+    cues:[[33,2],[29,0],[31,0],[38,3],[37,2]],
+    desc:"You take initiative, make decisions and give the group direction, especially when things are stuck.",
+    roles:"Team leader, project head, event coordinator",
+    role:"Project Lead",roleDesc:"Setting direction, making the final call when the group is stuck and keeping everyone pointed at the goal.",
+    env:["A clear, ambitious goal","Room to make decisions","Teammates who will push back honestly","A mix of planners and doers"],
+    superpower:"Getting a stuck group moving",
+    growth:"Hold back your view in the next meeting until two others have spoken. Leading also means making space.",
+    comp:["analyst","glue"]},
+  architect:{name:"The Architect",tag:"Strategic organiser",noun:"Builder",dims:["coord"],items:[15,25],
+    cues:[[33,0],[29,0],[36,2],[38,1],[40,4],[37,2]],
+    desc:"You structure ideas, anticipate problems and create workable plans. You like turning vague ideas into achievable steps so everyone knows what to do.",
+    roles:"Strategist, planner, operations coordinator",
+    role:"Project Coordinator",roleDesc:"Organising the team, allocating tasks, tracking progress and helping ideas become actionable outcomes.",
+    env:["Clear responsibilities and expectations","Members who communicate openly","A balance of creativity and organisation","Mutual accountability"],
+    superpower:"Turning ideas into organised action",
+    growth:"Delegate one task fully this week and let the other person do it their way, even if it isn’t how you would.",
+    comp:["wildcard","engine"]},
+  glue:{name:"The Glue",tag:"Team harmoniser",noun:"Connector",dims:["comm","motiv"],items:[14,19,26,27,21],
+    cues:[[33,1],[29,1],[30,3],[37,3],[38,0],[40,0],[36,3]],
+    desc:"You connect people, ease tensions and make sure everyone gets heard. Teams with you in them tend to stay together under pressure.",
+    roles:"Mediator, team facilitator, people coordinator",
+    role:"Team Facilitator",roleDesc:"Running discussions, drawing quieter voices in, resolving friction and keeping morale up.",
+    env:["Psychological safety to speak up","Shared goals people care about","Low ego, high respect","Time to connect, not just deliver"],
+    superpower:"Keeping people connected under pressure",
+    growth:"Name a disagreement out loud early instead of smoothing it over. Healthy conflict is part of keeping a team together.",
+    comp:["captain","analyst"]},
+  engine:{name:"The Engine",tag:"Reliable executor",noun:"Driver",dims:["exec"],items:[18,22,25],
+    cues:[[29,2],[33,3],[35,3],[37,0],[40,1]],
+    desc:"You turn ideas into action and make sure responsibilities are met. People know that when you say it’ll be done, it will be.",
+    roles:"Implementation lead, task manager, execution specialist",
+    role:"Implementation Lead",roleDesc:"Owning delivery, breaking work into tasks and making sure things actually ship on time.",
+    env:["Clear priorities","Fair distribution of work","Visible progress","Teammates who follow through too"],
+    superpower:"Making sure things actually get done",
+    growth:"Speak up during planning, not just delivery. Your sense of what’s realistic is useful before the plan is set.",
+    comp:["architect","captain"]},
+  wildcard:{name:"The Wildcard",tag:"Creative innovator",noun:"Explorer",dims:["innov"],items:[17,20],
+    cues:[[31,2],[38,2],[40,3],[36,1],[35,2]],
+    desc:"You question conventional approaches and generate original solutions. When the plan stops working, you’re often the one with another way in.",
+    roles:"Creative director, ideator, innovation lead",
+    role:"Ideas Lead",roleDesc:"Generating options, reframing problems and challenging the default when the group gets stuck.",
+    env:["Freedom to experiment","Tolerance for half-formed ideas","Someone who can turn ideas into plans","Variety in the work"],
+    superpower:"Finding another way when the plan breaks",
+    growth:"Pick one idea and stay with it through delivery. Seeing an idea through builds as much credibility as having it.",
+    comp:["architect","engine"]},
+  analyst:{name:"The Analyst",tag:"Quality controller",noun:"Evaluator",dims:["innov"],items:[24,20,23],
+    cues:[[35,0],[37,4],[31,0],[36,1],[35,2]],
+    desc:"You evaluate ideas, spot weaknesses and care about quality. You make sure the team’s work holds up, not just that it’s finished.",
+    roles:"Research lead, evaluator, quality assurance",
+    role:"Quality Lead",roleDesc:"Reviewing work, testing assumptions and making sure the final output meets a high standard.",
+    env:["High standards","Time to review before submitting","Openness to critique","Evidence-based decisions"],
+    superpower:"Raising the standard of the final output",
+    growth:"Pair every critique with one thing that works. People take feedback better when they know what to keep.",
+    comp:["wildcard","captain"]}
+};
+
+/* ---------------- STATE ---------------- */
+const KEY="ftdna_v1";
+let st={name:"",i:0,a:{},done:false,seenSect:{}};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(st))}catch(e){}}
+function load(){try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.a)return s}catch(e){}return null}
+const $=id=>document.getElementById(id);
+function show(id){["intro","sect","quiz","results"].forEach(x=>$(x).classList.toggle("hidden",x!==id));window.scrollTo({top:0});}
+
+/* ---------------- FLOW ---------------- */
+const prior=load();
+if(prior&&Object.keys(prior.a).length){ $("resumeBtn").classList.remove("hidden"); if(prior.name)$("name").value=prior.name; }
+$("startBtn").onclick=()=>{st={name:$("name").value.trim(),i:0,a:{},done:false,seenSect:{}};save();goTo(0)};
+$("resumeBtn").onclick=()=>{st=prior;st.name=$("name").value.trim()||st.name;if(st.done){renderResults()}else goTo(st.i)};
+
+function goTo(i){
+  st.i=i;save();
+  const sec=Q[i].s;
+  if(!st.seenSect[sec]&&(i===0||Q[i-1].s!==sec)){ return showSect(sec); }
+  renderQ();
+}
+function showSect(sec){
+  const S=SECTIONS.find(x=>x.id===sec);
+  $("sectEyebrow").textContent=S.eyebrow;$("sectTitle").textContent=S.title;$("sectDesc").textContent=S.desc;
+  $("sectBack").classList.toggle("hidden",st.i===0);
+  $("sectGo").onclick=()=>{st.seenSect[sec]=true;save();renderQ()};
+  $("sectBack").onclick=()=>{st.seenSect[sec]=false;goTo(st.i-1);st.seenSect[sec]=false};
+  show("sect");$("sectGo").focus();
+}
+function renderQ(){
+  show("quiz");
+  const i=st.i,q=Q[i],n=i+1,S=SECTIONS.find(x=>x.id===q.s);
+  $("bar").style.width=(i/Q.length*100)+"%";
+  $("secLabel").textContent=S.title;$("count").textContent=n+" of "+Q.length;
+  $("qnum").textContent=String(n).padStart(2,"0");
+  $("qtext").textContent=q.t;
+  const box=$("answers");box.innerHTML="";
+  const cur=st.a[n];
+  if(!q.o){
+    box.className="likert";box.setAttribute("aria-label","Rate this statement");
+    LIKERT.forEach((l,k)=>{const b=document.createElement("button");b.className="opt";b.setAttribute("aria-pressed",cur===k+1);
+      b.innerHTML="<b>"+(k+1)+"</b>"+l;b.onclick=()=>answer(k+1);box.appendChild(b)});
+    $("hint").textContent="Tip: use keys 1–5";
+  }else{
+    box.className="choices";box.setAttribute("aria-label","Choose one");
+    q.o.forEach((l,k)=>{const b=document.createElement("button");b.className="opt";b.setAttribute("aria-pressed",cur===k);
+      b.innerHTML='<span class="k">'+"ABCDE"[k]+"</span><span>"+l+"</span>";b.onclick=()=>answer(k);box.appendChild(b)});
+    $("hint").textContent="Tip: use keys A–"+"ABCDE"[q.o.length-1];
+  }
+  $("back").disabled=i===0;
+}
+let lock=false;
+function answer(v){
+  if(lock)return;lock=true;
+  st.a[st.i+1]=v;save();
+  [...$("answers").children].forEach((b,k)=>b.setAttribute("aria-pressed",(Q[st.i].o?k:k+1)===v));
+  setTimeout(()=>{lock=false;if(st.i<Q.length-1)goTo(st.i+1);else{st.done=true;save();renderResults()}},220);
+}
+$("back").onclick=()=>{if(st.i>0){const prevSec=Q[st.i-1].s; st.i--; save(); renderQ();}};
+document.addEventListener("keydown",e=>{
+  if($("quiz").classList.contains("hidden")||e.metaKey||e.ctrlKey||e.altKey)return;
+  const q=Q[st.i];
+  if(!q.o&&/^[1-5]$/.test(e.key))answer(+e.key);
+  else if(q.o){const k="abcde".indexOf(e.key.toLowerCase());if(k>=0&&k<q.o.length)answer(k)}
+  else if(e.key==="Backspace"||e.key==="ArrowLeft")$("back").click();
+});
+
+/* ---------------- SCORING ---------------- */
+const val=n=>n<0?6-st.a[-n]:st.a[n];
+const pct=items=>{const m=items.reduce((s,n)=>s+val(n),0)/items.length;return Math.round((m-1)/4*100)};
+function band(p){return p>=80?"A prominent self-reported tendency":p>=60?"Frequently endorsed: a possible strength":p>=40?"Moderately endorsed; may depend on context":"Less often endorsed: an area to explore"}
+function archScore(A){
+  let base=pct(A.items);
+  if(A.rev){base=Math.round(.5*base+.5*(100-pct(A.rev)))}
+  const hits=A.cues.filter(([q,o])=>st.a[q]===o).length;
+  return {score:Math.round(.75*base+Math.min(hits,3)*8.33),hits};
+}
+function rank(set){return Object.entries(set).map(([k,A])=>({k,A,...archScore(A)})).sort((x,y)=>y.score-x.score)}
+
+/* ---------------- RESULTS ---------------- */
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function renderResults(){
+  const fd=Object.entries(FDIMS).map(([k,d])=>({k,...d,p:pct(d.items)}));
+  const td=Object.entries(TDIMS).map(([k,d])=>({k,...d,p:pct(d.items)}));
+  const fr=rank(FRIEND), tr=rank(TEAM);
+  const F1=fr[0].A,F2=fr[1].A,T1=tr[0].A,T2=tr[1].A;
+  const fBlend=fr[0].score-fr[1].score<5, tBlend=tr[0].score-tr[1].score<5;
+  const used=new Set([...F1.dims,...T1.dims]);
+  const hidden=[...fd,...td].filter(d=>!used.has(d.k)).sort((a,b)=>b.p-a.p)[0];
+  const compKey=T1.comp[0], comp=TEAM[compKey], comp2=TEAM[T1.comp[1]];
+  const title="The "+F1.adj+" "+T1.noun;
+  const nm=st.name?esc(st.name):"";
+
+  const bars=(arr,cls)=>arr.map(d=>`<div class="bar ${cls}"><div class="lbl"><span>${d.name}</span><span>${d.p}</span></div><div class="track"><i style="width:${Math.max(d.p,2)}%"></i></div><small>${band(d.p)}</small></div>`).join("");
+  const sjt=Q.map((q,i)=>({q,n:i+1})).filter(x=>x.q.s==="C").map(x=>`<li><span>${x.q.short}:</span> ${esc(x.q.o[st.a[x.n]])}</li>`).join("");
+
+  $("results").innerHTML=`
+  <div class="hero">
+    <div class="eyebrow">${nm?nm+"’s ":"Your "}Friend &amp; Team DNA</div>
+    <h1>${title}</h1>
+    <div class="pair"><b>${F1.name}</b> × <b>${T1.name}</b></div>
+    ${(fBlend||tBlend)?`<div class="blend">Blended profile: ${fBlend?F1.name+" / "+F2.name:""}${fBlend&&tBlend?" · ":""}${tBlend?T1.name+" / "+T2.name:""} scored closely</div>`:""}
+  </div>
+
+  <div class="grid2">
+    <div class="card arch">
+      <div class="eyebrow">Your friendship identity</div>
+      <h2>${F1.name}</h2><div class="tag">${F1.tag}</div>
+      <p>${F1.desc}</p>
+      <div class="second">Secondary: <b>${F2.name}</b> (${F2.tag.toLowerCase()})</div>
+    </div>
+    <div class="card arch">
+      <div class="eyebrow">Your teamwork identity</div>
+      <h2>${T1.name}</h2><div class="tag">${T1.tag}</div>
+      <p>${T1.desc}</p>
+      <div class="second">Secondary: <b>${T2.name}</b> (${T2.tag.toLowerCase()})</div>
+    </div>
+  </div>
+
+  <div class="grid2 section">
+    <div class="card"><h3>Your friendship strengths</h3><ul class="clean">${F1.strengths.map(s=>"<li>"+s+"</li>").join("")}</ul></div>
+    <div class="card"><h3>Possible blind spots</h3><ul class="clean">${F1.blind.map(s=>"<li>"+s+"</li>").join("")}</ul></div>
+  </div>
+
+  <div class="grid2 section">
+    <div class="card"><h3>Your ideal team</h3><p style="color:var(--muted);font-size:.92rem;margin-bottom:.6em">You may thrive in a team that has:</p><ul class="clean">${T1.env.map(s=>"<li>"+s+"</li>").join("")}</ul></div>
+    <div class="card"><h3>Your recommended team role</h3><div class="role"><b>${T1.role}</b>${T1.roleDesc}</div><p style="font-size:.88rem;color:var(--muted);margin:12px 0 0">Other roles that may suit you: ${T1.roles}.</p></div>
+  </div>
+
+  <div class="card section">
+    <h3>Who balances you</h3>
+    <p>As ${T1.name}, you may work especially well alongside <b>${comp.name}</b> (${comp.tag.toLowerCase()}) and <b>${comp2.name}</b> (${comp2.tag.toLowerCase()}). Their strengths tend to complement yours.</p>
+    <p style="font-size:.85rem;color:var(--muted);margin:0">This is a suggested complementarity, not a compatibility ranking. Real team success depends on the task, skills and how people adapt.</p>
+  </div>
+
+  <div class="card section" style="border-color:var(--warm)">
+    <div class="eyebrow" style="color:var(--warm)">Your growth challenges</div>
+    <p><b>In friendships:</b> ${F1.growth}</p>
+    <p style="margin:0"><b>In teams:</b> ${T1.growth}</p>
+  </div>
+
+  <div class="card section">
+    <h3>Your score summary</h3>
+    <p style="font-size:.88rem;color:var(--muted)">Scores run 0–100 and show how strongly you endorsed each area. They are not percentiles and don’t compare you with anyone else.</p>
+    <div class="grid2" style="gap:28px">
+      <div><div class="eyebrow">Friendship</div><div class="bars">${bars(fd,"")}</div></div>
+      <div><div class="eyebrow" style="color:var(--warm)">Teamwork</div><div class="bars">${bars(td,"team")}</div></div>
+    </div>
+    <details><summary>How you tend to respond in situations</summary><ul class="clean responses" style="margin-top:10px">${sjt}</ul></details>
+    <details><summary>How this profile was built</summary><p style="font-size:.9rem;margin-top:10px;color:var(--muted)">Your archetypes come mainly from your ratings in Sections A and B, with your situational choices and self-descriptions (Sections C and D) adding context. Item 9 is reverse-scored. When two archetypes scored closely, your profile is shown as blended. The questionnaire draws on established ideas (friendship quality, team-member effectiveness, Big Five, social exchange and group-development theory) but is an original activity that hasn’t been psychometrically validated.</p></details>
+  </div>
+
+  <div class="section" id="takeWrap">
+    <div class="take" id="take">
+      <div class="eyebrow">${nm?nm+"’s ":"Your "}Friend &amp; Team DNA</div>
+      <h2>${title}</h2>
+      <dl>
+        <dt>Friend type</dt><dd>${F1.name}</dd>
+        <dt>Team type</dt><dd>${T1.name}</dd>
+        <dt>Hidden strength</dt><dd>${hidden.name}</dd>
+        <dt>Complementary teammate</dt><dd>${comp.name}</dd>
+        <dt>Team superpower</dt><dd>${T1.superpower}</dd>
+      </dl>
+      <div class="fine">A self-reflection profile, not a formal psychological evaluation.</div>
+    </div>
+    <div class="row">
+      <button class="btn" id="copyBtn">Copy my results</button>
+      <button class="ghost" id="imgBtn">Save card as image</button>
+      <button class="ghost" id="printBtn">Print / save PDF</button>
+      <button class="lk" id="retake">Retake</button>
+    </div>
+  </div>`;
+  show("results");
+  $("topmeta").textContent="Your profile";
+
+  const summary=`${st.name?st.name+"’s ":"My "}Friend & Team DNA: ${title}
+Friend type: ${F1.name} (${F1.tag})
+Team type: ${T1.name} (${T1.tag})
+Hidden strength: ${hidden.name}
+Complementary teammate: ${comp.name}
+Team superpower: ${T1.superpower}
+Take it yourself: ${location.href.split("#")[0]}`;
+  $("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(summary);toast("Copied to clipboard")}catch(e){toast("Couldn’t copy. Select the card text instead.")}};
+  $("retake").onclick=()=>{try{localStorage.removeItem(KEY)}catch(e){};st={name:st.name,i:0,a:{},done:false,seenSect:{}};$("topmeta").textContent="Self-reflection profile";show("intro");$("resumeBtn").classList.add("hidden")};
+  const framed=(()=>{try{return window.self!==window.top}catch(e){return true}})();
+  if(framed){$("imgBtn").classList.add("hidden");$("printBtn").classList.add("hidden")}
+  $("printBtn").onclick=()=>{try{window.print()}catch(e){}};
+  $("imgBtn").onclick=()=>drawCard({nm:st.name,title,F1,T1,hidden:hidden.name,comp:comp.name});
+}
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("on");setTimeout(()=>t.classList.remove("on"),2200)}
+
+/* takeaway card as PNG (works when the page is opened directly, e.g. on Vercel) */
+function drawCard(d){
+  const W=1080,H=1350,c=document.createElement("canvas");c.width=W;c.height=H;const x=c.getContext("2d");
+  const g=x.createLinearGradient(0,0,W,H);g.addColorStop(0,"#1f6f5c");g.addColorStop(1,"#143f35");x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.strokeStyle="rgba(255,255,255,.07)";x.lineWidth=90;x.beginPath();x.arc(W-60,120,260,0,Math.PI*2);x.stroke();
+  x.fillStyle="#a9e0cf";x.font="600 30px Inter, sans-serif";x.fillText(((d.nm?d.nm+"’s ":"MY ")+"FRIEND & TEAM DNA").toUpperCase(),90,170);
+  x.fillStyle="#fff";x.font="600 104px Fraunces, Georgia, serif";
+  const words=d.title.split(" ");let line="",y=320;
+  words.forEach(w=>{const t=line?line+" "+w:w;if(x.measureText(t).width>W-180){x.fillText(line,90,y);line=w;y+=118}else line=t});x.fillText(line,90,y);
+  y+=120;
+  [["Friend type",d.F1.name],["Team type",d.T1.name],["Hidden strength",d.hidden],["Complementary teammate",d.comp],["Team superpower",d.T1.superpower]].forEach(([k,v])=>{
+    x.fillStyle="#a9e0cf";x.font="500 32px Inter, sans-serif";x.fillText(k,90,y);
+    x.fillStyle="#fff";x.font="600 46px Inter, sans-serif";x.fillText(v,90,y+58);y+=150});
+  x.fillStyle="#bfe3d8";x.font="400 26px Inter, sans-serif";x.fillText("A self-reflection profile, not a formal psychological evaluation.",90,H-90);
+  c.toBlob(b=>{const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="friend-team-dna.png";document.body.appendChild(a);a.click();a.remove();toast("Card saved")});
+}
+if(prior&&prior.done){ /* stay on intro; user can resume to see results */ }
+</script>
+</body>
+</html>
